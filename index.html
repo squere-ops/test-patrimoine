@@ -111,6 +111,7 @@ body {
 .brand-firm { color: var(--gold); font-weight: 400; font-size: 0.8125rem; letter-spacing: .26em; text-transform: uppercase; white-space: nowrap; }
 .brand-txt small { display: flex; flex-wrap: wrap; gap: 0 8px; color: var(--blue-light); font-size: 0.71875rem; line-height: 1.35; letter-spacing: .03em; }
 .brand-txt small > * { white-space: nowrap; }
+.brand-txt .brand-reg { gap: 0 4px; font-size: 0.6875rem; opacity: .85; }
 .brand-txt small b { color: var(--gold-light); font-weight: 500; }
 
 .screen { display: flex; flex-direction: column; gap: 24px; }
@@ -204,8 +205,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .tile { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); text-decoration: none; min-width: 0; transition: border-color .15s; }
 .tile:hover { border-color: var(--accent); }
 .tile-ic { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; flex: none; }
-.ic-card { background: var(--accent-soft); color: var(--accent); }
-.ic-card svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+/* Picto contact : personne + « ajouter », or sur marine, même poids visuel que le logo LinkedIn */
+.ic-card { background: var(--navy); color: var(--gold-light); border-radius: 6px; }
+.ic-card svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .ic-card { background: var(--gold); color: #0E3A48; } }
+:root[data-theme="dark"] .ic-card { background: var(--gold); color: #0E3A48; }
 .ic-in svg { width: 38px; height: 38px; fill: #0A66C2; background: #FFFFFF; border-radius: 5px; }
 .tile-t { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
 .tile-t strong { font-weight: 600; font-size: 0.9375rem; line-height: 1.25; }
@@ -268,16 +272,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .gauge-ticks i { width: 1px; height: 6px; background: var(--muted); display: block; }
 .gauge-ticks i.major { height: 11px; background: var(--ink); }
 .gauge-labels { display: flex; justify-content: space-between; margin-top: 4px; font-size: var(--step--1); color: var(--muted); font-variant-numeric: tabular-nums; }
-.contrast {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-  border-block: 1px solid var(--line);
-}
-.contrast.solo { grid-template-columns: 1fr; }
-.contrast div { padding: 14px 0; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.contrast div + div { border-left: 1px solid var(--line); padding-left: 16px; }
-.contrast b { font-family: var(--display); font-size: var(--step-2); font-variant-numeric: tabular-nums; line-height: 1.1; }
-.contrast span { font-size: var(--step--1); color: var(--muted); padding-right: 8px; }
-.contrast b small { font-size: .55em; font-weight: 500; color: var(--muted); margin-left: 2px; }
 .open-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
 .open-list li {
   display: flex; justify-content: space-between; align-items: flex-start; gap: 14px;
@@ -349,7 +343,7 @@ details.privacy p { padding-top: 4px; }
 <div class="shell">
   <header class="brand">
     <img class="brand-logo" src="logo-up.svg" alt="" width="44" height="44">
-    <span class="brand-txt"><span class="brand-firm">Universel Patrimoine</span><small><b id="brand-name"></b><span>Conseiller en gestion de patrimoine</span></small></span>
+    <span class="brand-txt"><span class="brand-firm">Universel Patrimoine</span><small><b id="brand-name"></b><span>Conseiller en gestion de patrimoine</span></small><small class="brand-reg"><span>Courtier en assurance,</span><span>ORIAS n° 08040837</span></small></span>
     <a class="brand-in" id="brand-in" target="_blank" rel="noopener" data-track="clic_linkedin" aria-label="Profil LinkedIn de Sylvain Quéré"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
   </header>
   <main id="app" aria-live="polite"></main>
@@ -621,16 +615,6 @@ details.privacy p { padding-top: 4px; }
     var ticks = '';
     for (var t = 0; t <= 10; t++) ticks += '<i class="' + (t % 5 === 0 ? 'major' : '') + '"></i>';
 
-    // Deux chiffres réels du test, quand ils sont connus : confiance dans le banquier, regret des choix passés.
-    var st = state.stats, contrast = '';
-    if (st && st.total && st.confiance != null && st.pas_memes_choix != null) {
-      contrast = '<div class="stack"><p class="small muted">Parmi les ' + st.total + ' personnes qui ont fait ce test</p>' +
-        '<div class="contrast">' +
-        '<div><b>' + String(st.confiance).replace('.', ',') + '<small>/5</small></b><span>la confiance moyenne accordée au banquier, en étoiles</span></div>' +
-        '<div><b>' + Math.round(st.pas_memes_choix / st.total * 100) + '\u00a0%</b><span>ne referaient pas les mêmes choix</span></div>' +
-        '</div></div>';
-    }
-
     var cta = '';
     if (state.cta === 'sent') {
       cta = '<p class="lede">C’est noté' + (state.prenom ? ', ' + esc(state.prenom) : '') + '. ' + esc(ADVISOR.prenom) + ' vous recontacte' + (state.creneau ? ' pour confirmer ' + esc(state.creneau) : '') + '.</p>' +
@@ -679,11 +663,11 @@ details.privacy p { padding-top: 4px; }
       '<p class="small muted">5 questions notées sur 2 points.</p>' +
       '</div>' +
       '<div class="stack"><h1 id="verdict" data-band="' + band + '">' + verdict + '</h1><p class="lede">' + sub + '</p></div>' +
-      contrast + cta +
+      cta +
       '<div class="stack"><p class="muted">' + (state.cta === 'sent' ? 'En attendant, gardez mes coordonnées.' : 'Pas envie de laisser vos coordonnées ? Gardez les miennes.') + '</p>' +
       '<div class="tiles">' +
       '<a class="tile" data-track="clic_fiche" href="' + ADVISOR.vcard + '" download>' +
-      '<span class="tile-ic ic-card" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2.2"/><path d="M5.8 16c.5-1.7 1.7-2.5 3.2-2.5s2.7.8 3.2 2.5M14.5 10h4M14.5 13.5h3"/></svg></span>' +
+      '<span class="tile-ic ic-card" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9.5" cy="8" r="3.6"/><path d="M2.8 19.6c.7-3.7 3.2-5.6 6.7-5.6s6 1.9 6.7 5.6"/><path d="M19 5.5v6M16 8.5h6"/></svg></span>' +
       '<span class="tile-t"><strong>Enregistrer mon contact</strong><small>dans votre téléphone</small></span></a>' +
       '<a class="tile" data-track="clic_linkedin" href="' + ADVISOR.linkedin + '" target="_blank" rel="noopener">' +
       '<span class="tile-ic ic-in" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>' +
