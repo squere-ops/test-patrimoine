@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Quéré;Sylvain;;;
+FN:Sylvain Quéré
+ORG:Universel Patrimoine
+TITLE:Conseiller en gestion de patrimoine
+TEL;TYPE=CELL,VOICE,PREF:+33630083399
+EMAIL;TYPE=WORK,INTERNET,PREF:squere@universel-patrimoine.com
+item1.URL:https://www.linkedin.com/in/sylvain-quere-33381111
+item1.X-ABLabel:LinkedIn
+END:VCARD
